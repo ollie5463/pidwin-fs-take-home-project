@@ -33,6 +33,8 @@ const Navbar = () => {
     );
   }, [location]);
 
+  console.log("user: ", user);
+
   return (
     <AppBar sx={styles.appBar} position="static" color="inherit">
       <div sx={styles.brandContainer}>
@@ -54,6 +56,9 @@ const Navbar = () => {
             </Avatar>
             <Typography sx={styles.userName} variant="h6">
               {user.name}
+            </Typography>
+            <Typography sx={styles.tokens} variant="h6">
+              {`Tokens: ${user.tokens}`}
             </Typography>
             <Button
               variant="contained"

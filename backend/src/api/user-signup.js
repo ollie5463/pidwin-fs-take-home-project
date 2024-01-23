@@ -20,6 +20,7 @@ const signup = async (req, res) => {
       email,
       password: hashedPassword,
       name: `${firstName} ${lastName}`,
+      tokens: 100
     });
     const token = jwt.sign(
       {
@@ -27,6 +28,7 @@ const signup = async (req, res) => {
         name: result.name,
         email: result.email,
         password: result.hashedPassword,
+        tokens: result.tokens
       },
       "test",
       { expiresIn: "1h" }
