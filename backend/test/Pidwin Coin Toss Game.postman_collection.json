@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "8bfba0bc-bc96-4659-b25e-d894660fe864",
+		"name": "Pidwin Coin Toss Game",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30061332"
+	},
+	"item": [
+		{
+			"name": "Wager",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWIwNDM4NWUzNzZmYThlNzFmOTE5OWMiLCJuYW1lIjoiT2xpdmVyIEJhbm5pc3RlciIsImVtYWlsIjoiYmFubmlzdGVyb2xpdmVyQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEyJHRQeFI0OUJ6VTNLbVRGQml2Yjc2eWVTNXE4NDA2TFE0Nm1IZkxGZmRWaDdDRHI3aS8yNEV5IiwidG9rZW5zIjoxMDUsImlhdCI6MTcwNjA1NjUwMSwiZXhwIjoxNzA2MDYwMTAxfQ.TWV0e_gP_cx0937PuXn86kdja8tchUhYKp-V0LT_cQs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"choice\": \"heads\",\n    \"tokens\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/user/wager",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"wager"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
