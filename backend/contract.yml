@@ -1,0 +1,61 @@
+---
+openapi: "3.0.2"
+info:
+  title: coin_toss_service
+  version: 1.0.0
+  description: A service which handles login and database transactions
+paths:
+  /api/user/wager:
+    post:
+      tags:
+        - user
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WagerReqPayload"
+      responses:
+        "200":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/incorrect_choice"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/incorrect_choice"
+      summary: Place a wager for a coin toss
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+  schemas:
+    incorrect_choice:
+      properties:
+        status:
+          type: number
+          example: 400
+        message:
+          type: string
+          example: "Incorrect choice"
+    WagerReqPayload:
+      type: object
+      properties:
+        tokens:
+          type: number
+          example: 5
+        choice:
+          type: string
+          example: "heads"
+      required:
+        - tokens
+        - choice
