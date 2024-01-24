@@ -18,9 +18,11 @@ const auth = async (req, res, next) => {
     }
     console.log(decodedData)
     console.log(req.userId)
-
     next();
-  } catch (error) { }
+  } catch (error) {
+    // @TODO: come back to this
+    console.error(error);
+   }
 };
 
 export default auth;
