@@ -26,6 +26,22 @@ export const styles = {
     justifyContent: "space-between",
     width: "400px",
   },
+  container: { 
+    display: "flex", 
+    justifyContent: "space-evenly", 
+    alignItems: "flex-end", 
+    marginBottom: "40px" 
+  },
+  wagerInput: {
+    alignItems: "left"
+   },
+  wagerContainer: {
+    display: "flex", 
+    alignItems: "center"
+   },
+   submitButton: {
+    margin: "0 10px"
+  },
   userName: {
     display: "flex",
     alignItems: "center",

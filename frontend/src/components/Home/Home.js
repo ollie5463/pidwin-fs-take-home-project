@@ -11,8 +11,7 @@ import { styles } from "./styles";
 const Home = () => {
 
   const [choice, setChoice] = useState("tails");
-  const [tokens, setTokens] = useState(0);
-  // const [winOrLoss, setWinOrLoss] = useState("");
+  const [tokens, setTokens] = useState(1);
   const wagerData = useSelector((state) => state.wager?.wagerData);
   const wagerHistory = useSelector((state) => state.wager?.wagerHistory);
   console.log("wagerData: ", wagerData);
@@ -45,9 +44,11 @@ const Home = () => {
               <Typography sx={styles.heading} variant="h3" align="center" color="primary">
                 {`Welcome ${user.name}`}
               </Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end', marginBottom: "40px" }}>
-                <TextField sx={{ alignItems: 'left' }} value={tokens} onChange={handleTextValueChange} id="outlined-basic" label="Enter Wager!" inputProps={{ type: 'number'}}  variant="outlined" />
-                <Button variant="contained" onClick={clickHandler}>Submit</Button>
+              <Box sx={styles.container}>
+                <Box sx={styles.wagerContainer}>
+                  <TextField sx={styles.wagerInput} value={tokens} onChange={handleTextValueChange} id="outlined-basic" label="Enter Wager!" inputProps={{ type: 'number'}}  variant="outlined" />
+                  <Button sx={styles.submitButton} variant="contained" onClick={clickHandler}>Submit</Button>
+                 </Box>
                 <RadioButtons value={choice} setValue={setChoice}/>
               </Box>
               {wagerData?.isWin === true ? <Typography variant="body1">You Win :)!</Typography> : <></>}
