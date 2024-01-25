@@ -2,11 +2,7 @@ import User from "../models/user.js";
 import Transactions from "../models/transactions.js";
 
 const wager = async (req, res) => {
-
   const { choice, tokens: wager } = req.body;
-
-  //@TODO: Wager can't be fixed!!! Needs to be passed in
-
 
   const choiceMapping = {
     "tails": 0,
@@ -68,7 +64,7 @@ const wager = async (req, res) => {
 };
 
 function isValidChoice(choice, choiceMapping){
-  return !!choiceMapping[choice];
+  return !(choiceMapping[choice] === undefined);
 }
 
 function isWinningChoice(choice, choiceMapping) {

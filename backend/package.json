@@ -7,8 +7,8 @@
   "scripts": {
     "start": "node index.js",
     "start:dev": "nodemon index.js",
-    "test": "jest test/**",
-    "test:watch": "jest ./test/api/user-wager.test.js"
+    "test": "NODE_ENV=test jest test/**",
+    "test:watch": "NODE_ENV=test jest test/** --watch"
   },
   "author": "Pidwin LLC",
   "license": "ISC",
@@ -28,6 +28,8 @@
   "devDependencies": {
     "@babel/core": "^7.23.7",
     "@babel/preset-env": "^7.23.8",
-    "babel-jest": "^29.7.0"
+    "babel-jest": "^29.7.0",
+    "supertest": "^6.3.4",
+    "testcontainers": "^10.6.0"
   }
 }
