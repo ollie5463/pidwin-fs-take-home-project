@@ -1,6 +1,7 @@
-import { LOGIN, LOGOUT } from "../constants/actionTypes";
+import { LOGIN, LOGOUT, SET_TOKENS } from "../constants/actionTypes";
 import * as api from "../api";
 import * as messages from "../messages";
+import { jwtDecode } from "jwt-decode";
 
 export const signup = (formData, history) => async (dispatch) => {
   try {
@@ -17,6 +18,8 @@ export const login = (formData, history) => async (dispatch) => {
   try {
     const { data } = await api.login(formData);
     dispatch({ type: LOGIN, data });
+    console.log("LOGIN DATA: ", jwtDecode(data.token));
+    dispatch({ type: SET_TOKENS, tokens: jwtDecode(data.token).tokens });
     history("/");
     messages.success("Login Successful");
   } catch (error) {

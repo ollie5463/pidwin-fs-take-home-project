@@ -3,6 +3,7 @@ import { AppBar, Typography, Toolbar, Avatar, Button } from "@mui/material";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { jwtDecode } from "jwt-decode";
+import { useSelector } from 'react-redux';
 import * as actionType from "../../constants/actionTypes";
 import { styles } from "./styles";
 
@@ -12,6 +13,9 @@ const Navbar = () => {
       ? jwtDecode(JSON.parse(localStorage.getItem("profile")).token)
       : "null"
   );
+  const tokens = useSelector((state) => state?.tokens?.tokens);
+
+  console.log("MY SLIMEY TOKENS: ", tokens);
   const dispatch = useDispatch();
   let location = useLocation();
   const history = useNavigate();
@@ -58,7 +62,7 @@ const Navbar = () => {
               {user.name}
             </Typography>
             <Typography sx={styles.tokens} variant="h6">
-              {`Tokens: ${user.tokens}`}
+              {`Tokens: ${tokens || user.tokens}`}
             </Typography>
             <Button
               variant="contained"
