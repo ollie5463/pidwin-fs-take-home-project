@@ -1,10 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Container, Grow, Paper, Typography, TextField, Button } from "@mui/material";
 import { jwtDecode } from "jwt-decode";
-import { placeWager } from "../../actions/wager";
+import { getWagerHistory, placeWager } from "../../actions/wager";
 import RadioButtons from "../RadioButtons/RadioButtons";
 import { useSelector } from 'react-redux';
+import WagerHistory from "../WagerHistory/WagerHistory";
 
 const Home = () => {
 
@@ -12,6 +13,7 @@ const Home = () => {
   const [tokens, setTokens] = useState(0);
   // const [winOrLoss, setWinOrLoss] = useState("");
   const wagerData = useSelector((state) => state.wager?.wagerData);
+  const wagerHistory = useSelector((state) => state.wager?.wagerHistory);
   console.log("wagerData: ", wagerData);
   const user = localStorage.getItem("profile")
     ? jwtDecode(JSON.parse(localStorage.getItem("profile")).token)
@@ -23,11 +25,14 @@ const Home = () => {
     console.log("Choice: ", choice);
     console.log("Tokens: ", tokens);
     dispatch(placeWager({ choice, tokens: parseInt(tokens) }));
-  }, [choice, tokens, dispatch])
-
-  ;
+    dispatch(getWagerHistory());
+  }, [choice, tokens, dispatch]);
   const handleTextValueChange = useCallback((event) => {
     setTokens(event.target.value)
+  }, []);
+
+  useEffect(() => {
+    dispatch(getWagerHistory());
   }, [])
 
   return (
@@ -44,6 +49,8 @@ const Home = () => {
               <RadioButtons value={choice} setValue={setChoice}/>
               {wagerData?.isWin === true ? <Typography variant="body1">You Win :)!</Typography> : <></>}
               {wagerData?.isWin === false ? <Typography variant="body1">You Lose :(!</Typography> : <></>}
+              {wagerData?.bonusAmount > 0 ? <Typography variant="body1">You Win a Bonus amount of: {wagerData.bonusAmount}</Typography> : <></>}
+              {wagerHistory?.transactions ? <WagerHistory rows={wagerHistory?.transactions}/> : <></>}
             </>
 
           ) : (

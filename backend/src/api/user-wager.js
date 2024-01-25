@@ -26,29 +26,29 @@ const wager = async (req, res) => {
       await user.save();
 
       let isWin = isWinningChoice(choice, choiceMapping);
-      await Transactions.create({
-        user_id: userId,
-        is_win: isWin,
-        time: Date.now()
-      });
-      // @TODO: Add choice!
-
       let consecutiveWins = await getConsecutiveWins(userId);
       console.log("consecutiveWins: ", consecutiveWins);
 
       let bonusAmount = getBonusAmount(consecutiveWins, wager);
-
+      let winAmount = 0;
       if(isWin) {
-        user.tokens += bonusAmount || wager * 2 ;
+        winAmount = bonusAmount || wager * 2;
+        user.tokens += winAmount;
         await user.save();
         console.log("Win Amount:", bonusAmount || wager * 2);
       };
       console.log("bonusAmount:", bonusAmount);
       
+      await Transactions.create({
+        user_id: userId,
+        is_win: isWin,
+        time: Date.now(),
+        winAmount
+      });
 
       // Add win amount
 
-      res.status(200).json({ isWin, tokens: user.tokens });
+      res.status(200).json({ isWin, tokens: user.tokens, bonusAmount });
 
     } else {
       return res.status(400).json({ message: "Insufficient funds" });
@@ -91,7 +91,8 @@ async function getConsecutiveWins(userId) {
   let transactions = await Transactions.find({ user_id: userId });
   transactions = transactions.sort((a, b) => a - b ).reverse();
   let consecutiveWins = transactions.findIndex((transaction) => transaction.is_win === false);
-  return consecutiveWins;
+  // First wager returns -1
+  return Math.sign(consecutiveWins) ? consecutiveWins : 0;
 }
 
 export default wager;

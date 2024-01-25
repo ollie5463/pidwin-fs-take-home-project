@@ -41,9 +41,10 @@ The frontend is your standard create-react-app, the default ReadME is provided u
 - Add a contract for the backend
 - Add postman config to hit the backend (do i need to extend for all endpoints?)
 - Do hot reload like nodemon for the backend
-- Talk about postman config on readme
 - Check for errors
 - Write backend tests
 - Make secret from a .env file
 - Linting could be nice
 - Add necessary actions to update the navbar tokens on the front end
+- Remove console logs
+- Styling on the front end
