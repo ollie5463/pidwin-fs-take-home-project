@@ -19,7 +19,7 @@ const WagerHistory = ({ rows }) => {
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
             <TableCell component="th" scope="row">
-              {time}
+              {`${Date(time)}`}
             </TableCell>
             <TableCell align="right">{String(is_win)}</TableCell>
             <TableCell align="right">{winAmount}</TableCell>

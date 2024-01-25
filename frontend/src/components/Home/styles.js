@@ -14,6 +14,7 @@ export const styles = {
   heading: {
     color: "rgba(0,183,255, 1)",
     textDecoration: "none",
+    padding: '20px'
   },
   toolbar: {
     display: "flex",
