@@ -21,12 +21,12 @@ const Home = () => {
   const isSingedIn = user;
   const dispatch = useDispatch();
 
-  const clickHandler = useCallback(() => {
+  const clickHandler = () => {
     console.log("Choice: ", choice);
     console.log("Tokens: ", tokens);
     dispatch(placeWager({ choice, tokens: parseInt(tokens) }));
     dispatch(getWagerHistory());
-  }, [choice, tokens, dispatch]);
+  };
   const handleTextValueChange = useCallback((event) => {
     setTokens(event.target.value)
   }, []);
@@ -56,7 +56,6 @@ const Home = () => {
               {wagerData?.bonusAmount > 0 ? <Typography variant="body1">You Win a Bonus amount of: {wagerData.bonusAmount}</Typography> : <></>}
               {wagerHistory?.transactions ? <WagerHistory rows={wagerHistory?.transactions}/> : <></>}
             </>
-
           ) : (
             <Typography variant="h4" align="center" color="primary">
               Login to Play
