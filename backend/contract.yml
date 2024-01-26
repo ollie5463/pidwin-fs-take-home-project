@@ -19,18 +19,50 @@ paths:
               $ref: "#/components/schemas/WagerReqPayload"
       responses:
         "200":
-          description: Bad request
+          description: Successful Request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/incorrect_choice"
+                $ref: "#/components/schemas/wager_correct_choice"
         "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/incorrect_choice"
+                $ref: "#/components/schemas/wager_incorrect_choice"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/wager_internal_server_error"
       summary: Place a wager for a coin toss
+  /api/user/wager/history:
+    get:
+      tags:
+        - user
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/wager_history_correct_choice"
+        "404":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/wager_history_incorrect_choice"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/wager_history_internal_server_error"
+      summary: Get wager history
 
 components:
   securitySchemes:
@@ -39,7 +71,36 @@ components:
       scheme: bearer
       bearerFormat: JWT  
   schemas:
-    incorrect_choice:
+    wager_history_incorrect_choice:
+      properties:
+        status:
+          type: number
+          example: 404
+        message:
+          type: string
+          example: "User doesn't exist"
+    wager_history_correct_choice:
+      properties:
+        status:
+          type: number
+          example: 200
+        transactions: 
+          type: array
+          example: [{
+            user_id: 1234,
+            is_win: false,
+            time: 45678543456789,
+            winAmount: 0
+            }]
+    wager_history_internal_server_error:
+      properties:
+        status:
+          type: number
+          example: 500
+        message:
+          type: string
+          example: "Something went wrong"
+    wager_incorrect_choice:
       properties:
         status:
           type: number
@@ -47,6 +108,28 @@ components:
         message:
           type: string
           example: "Incorrect choice"
+    wager_correct_choice:
+      properties:
+        status:
+          type: number
+          example: 200
+        isWin:
+          type: boolean
+          example: false
+        tokens:
+          type: number
+          example: 105
+        bonusAmount:
+          type: number
+          example: 0
+    wager_internal_server_error:
+      properties:
+        status:
+          type: number
+          example: 500
+        message:
+          type: string
+          example: "Something went wrong"
     WagerReqPayload:
       type: object
       properties:

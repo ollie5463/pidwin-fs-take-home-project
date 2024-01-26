@@ -45,6 +45,38 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Wager History",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWIxYjkyYTljZTVlN2NjMmJhMzQyMmMiLCJuYW1lIjoib2xpdmVyIGJhbm5pc3RlciIsImVtYWlsIjoiYmFubmlzdGVyb2xpdmVyMkBnbWFpbC5jb20iLCJ0b2tlbnMiOjEwMCwiaWF0IjoxNzA2MTQ2MDkwLCJleHAiOjE3MDYxNDk2OTB9.mtajSW9IdCK8SpOuywQvGC62mByl43Q0rNPvSQBNEn4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/user/wager/history",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user",
+						"wager",
+						"history"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

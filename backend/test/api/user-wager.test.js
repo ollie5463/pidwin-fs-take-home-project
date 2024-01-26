@@ -46,9 +46,6 @@ describe("Wager tests", () => {
         userCreationResult = await supertest(app).post("/api/user/wager")
           .set({'Authorization': `Bearer ${userCreationResult.body.token}`})
           .send({ choice: "heads", tokens: 5 });
-
-          console.log(userCreationResult.body);
-          console.log(userCreationResult.status);
       });
 
       it("Should change their balance accordingly", () => {

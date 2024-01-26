@@ -1,8 +1,10 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
+import dotenv from 'dotenv';
 
 const signup = async (req, res) => {
+  dotenv.config();
   const { email, password, confirmPassword, firstName, lastName } = req.body;
 
   try {
@@ -30,7 +32,7 @@ const signup = async (req, res) => {
         password: result.hashedPassword,
         tokens: result.tokens
       },
-      "test",
+      process.env.SECRET,
       { expiresIn: "1h" }
     );
 

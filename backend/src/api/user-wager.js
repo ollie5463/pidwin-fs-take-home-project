@@ -13,13 +13,10 @@ const wager = async (req, res) => {
     return res.status(400).json({ message: "Incorrect choice" });
   }
   const userId = req.userId;
-  console.log("choice: ", choice);
 
   try {
     let user = await User.findById(userId);
     let isValidWager = Math.sign(user.tokens - wager) === 1;
-    console.log("user.tokens: ", user.tokens)
-    console.log("wager: ", wager);
 
     if(isValidWager) {
       user.tokens -= wager;
@@ -27,17 +24,13 @@ const wager = async (req, res) => {
 
       let isWin = isWinningChoice(choice, choiceMapping);
       let consecutiveWins = await getConsecutiveWins(userId);
-      console.log("consecutiveWins: ", consecutiveWins);
-
       let bonusAmount = getBonusAmount(consecutiveWins, wager);
       let winAmount = 0;
       if(isWin) {
         winAmount = bonusAmount || wager * 2;
         user.tokens += winAmount;
         await user.save();
-        console.log("Win Amount:", bonusAmount || wager * 2);
       };
-      console.log("bonusAmount:", bonusAmount);
       
       await Transactions.create({
         user_id: userId,
@@ -53,9 +46,6 @@ const wager = async (req, res) => {
     } else {
       return res.status(400).json({ message: "Insufficient funds" });
     }
-
-
-    console.log(user);
   } catch(err) {
     console.error(err);
     res.status(500).json({ message: "Something went wrong" });
@@ -79,7 +69,6 @@ function getBonusAmount(consecutiveWins, wager) {
   if(consecutiveWins === 0) {
     return 0
   } else if(consecutiveWins % 5 === 0) {
-    console.log("consecutiveWins % 5 === 0", consecutiveWins % 5 === 0);
       return wager * 10;
   } else if (consecutiveWins === 3 || consecutiveWins % 5 % 3 === 0) {
       return wager * 3;

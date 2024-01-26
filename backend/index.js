@@ -22,7 +22,7 @@ mongoose
   .then(() =>
     listener = app.listen(PORT, () => console.log(`Server Started On Port ${PORT}`))
   )
-  .catch((error) => console.log(error.message));
+  .catch((error) => console.error(error.message));
 
   export { listener };
   export default app;
