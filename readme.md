@@ -15,17 +15,12 @@ To run the project you can use the following command:
 
 ``` just install-deps && just run-projects ```
 
+This command will install the dependencies from both the frontend and backend portion of the project. Then it will use docker compose to spin up a mongodb server and the backend, then starting the frontend using the usual ``` npm start ```
 
 ## Frontend
 
-The frontend is your standard create-react-app, the default ReadME is provided under frontend/readme.md for reference.
+For more info look [here](./frontend/README.md)
 
-- Add a contract for the backend
-- Add postman config to hit the backend (do i need to extend for all endpoints?)
-- Check for errors
-- Write backend tests
-- Make secret from a .env file
-- Linting could be nice
-- Add necessary actions to update the navbar tokens on the front end
-- Remove console logs
-- Styling on the front end
+## Backend
+
+For more info look [here](./backend/readme.md)

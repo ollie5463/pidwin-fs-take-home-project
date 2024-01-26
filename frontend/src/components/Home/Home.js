@@ -14,7 +14,6 @@ const Home = () => {
   const [tokens, setTokens] = useState(1);
   const wagerData = useSelector((state) => state.wager?.wagerData);
   const wagerHistory = useSelector((state) => state.wager?.wagerHistory);
-  console.log("wagerData: ", wagerData);
   const user = localStorage.getItem("profile")
     ? jwtDecode(JSON.parse(localStorage.getItem("profile")).token)
     : "null";
@@ -22,8 +21,6 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const clickHandler = () => {
-    console.log("Choice: ", choice);
-    console.log("Tokens: ", tokens);
     dispatch(placeWager({ choice, tokens: parseInt(tokens) }));
     dispatch(getWagerHistory());
   };

@@ -18,7 +18,6 @@ export const login = (formData, history) => async (dispatch) => {
   try {
     const { data } = await api.login(formData);
     dispatch({ type: LOGIN, data });
-    console.log("LOGIN DATA: ", jwtDecode(data.token));
     dispatch({ type: SET_TOKENS, tokens: jwtDecode(data.token).tokens });
     history("/");
     messages.success("Login Successful");

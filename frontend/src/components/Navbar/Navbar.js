@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AppBar, Typography, Toolbar, Avatar, Button } from "@mui/material";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { jwtDecode } from "jwt-decode";
 import { useSelector } from 'react-redux';
@@ -15,9 +15,7 @@ const Navbar = () => {
   );
   const tokens = useSelector((state) => state?.tokens?.tokens);
 
-  console.log("MY SLIMEY TOKENS: ", tokens);
   const dispatch = useDispatch();
-  let location = useLocation();
   const history = useNavigate();
 
   const logout = () => {
@@ -35,9 +33,8 @@ const Navbar = () => {
         ? jwtDecode(JSON.parse(localStorage.getItem("profile")).token)
         : "null"
     );
-  }, [location]);
-
-  console.log("user: ", user);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <AppBar sx={styles.appBar} position="static" color="inherit">

@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ limit: "5mb", extended: true }));
 app.use(cors());
 app.use("/api/user", userRouter);
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 let listener;
 mongoose
