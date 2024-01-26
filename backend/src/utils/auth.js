@@ -20,7 +20,7 @@ const auth = async (req, res, next) => {
     console.log(req.userId)
     next();
   } catch (error) {
-    // @TODO: come back to this
+    res.send(401).json({ message: "Unauthorized" })
     console.error(error);
    }
 };

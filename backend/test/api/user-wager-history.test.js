@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 
-describe("Wager tests", () => {
+describe("Wager History tests", () => {
   let mongoServer;
   let uri;
 
@@ -19,6 +19,7 @@ describe("Wager tests", () => {
     await mongoServer.stop();
     await listener.close()
   });
+
 
   describe("When a user signs up", () => {
     let userCreationResult;
@@ -40,25 +41,29 @@ describe("Wager tests", () => {
 
     });
 
-    describe("And the user wagers", () => {
-      let wagerResult;
+    describe("And the user wagers 10 times", () => {
       beforeAll(async () => {
-        userCreationResult = await supertest(app).post("/api/user/wager")
+        let wagers = [];
+        for(let i = 0; i < 10; i++){
+          wagers.push(supertest(app).post("/api/user/wager")
           .set({'Authorization': `Bearer ${userCreationResult.body.token}`})
-          .send({ choice: "heads", tokens: 5 });
-
-          console.log(userCreationResult.body);
-          console.log(userCreationResult.status);
+          .send({ choice: "heads", tokens: 5 }))
+        }
+        await Promise.all(wagers);
       });
 
-      it("Should change their balance accordingly", () => {
-        // A bit hacky but havent mocked the win/non win behaviour
-        const { isWin, tokens } = userCreationResult.body
+      describe("And a request get the wager history is made", () => {
+        let wagerHistoryResults;
+        beforeAll(async () => {
+          wagerHistoryResults = await supertest(app).get("/api/user/wager/history")
+            .set({'Authorization': `Bearer ${userCreationResult.body.token}`});
+        });
 
-        const expectedTokens = isWin ? 105 : 95;
-
-        expect(tokens).toEqual(expectedTokens);
-      })
+        it("It should be added to their wager history", () => {
+          expect(wagerHistoryResults.status).toEqual(200);
+          expect(wagerHistoryResults.body.transactions.length).toEqual(10);
+        })
+      });
     });
   });
 });

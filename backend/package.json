@@ -7,8 +7,8 @@
   "scripts": {
     "start": "node index.js",
     "start:dev": "nodemon index.js",
-    "test": "NODE_ENV=test jest test/**",
-    "test:watch": "NODE_ENV=test jest test/** --watch"
+    "test": "NODE_ENV=test jest test/** --runInBand",
+    "test:watch": "NODE_ENV=test jest test/** --watch --runInBand"
   },
   "author": "Pidwin LLC",
   "license": "ISC",
@@ -29,6 +29,7 @@
     "@babel/core": "^7.23.7",
     "@babel/preset-env": "^7.23.8",
     "babel-jest": "^29.7.0",
+    "jwt-decode": "^4.0.0",
     "supertest": "^6.3.4",
     "testcontainers": "^10.6.0"
   }

@@ -16,3 +16,5 @@ Note: There is a 1 hour expiry so you will need to refresh your token every hour
 You can run the tests in this project using the following command:
 
 ``` npm test ```
+
+The tests are written to test the scenarios listed in the requirements document from PidWin. I haven't covered every test scenario e.g. consecutive wins, since we would need to mock that and maybe make the number generation another service which seemed out of scope for this task.

@@ -16,11 +16,13 @@ app.use("/api/user", userRouter);
 
 const PORT = 8000;
 
+let listener;
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() =>
-    app.listen(PORT, () => console.log(`Server Started On Port ${PORT}`))
+    listener = app.listen(PORT, () => console.log(`Server Started On Port ${PORT}`))
   )
   .catch((error) => console.log(error.message));
 
+  export { listener };
   export default app;
