@@ -4,7 +4,6 @@ const auth = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const isCustomAuth = token.length < 500;
-
     let decodedData;
 
     if (token && isCustomAuth) {
@@ -14,9 +13,11 @@ const auth = async (req, res, next) => {
       decodedData = jwt.decode(token);
       req.userId = decodedData?.sub;
     }
-
     next();
-  } catch (error) { }
+  } catch (error) {
+    res.send(401).json({ message: "Unauthorized" })
+    console.error(error);
+   }
 };
 
 export default auth;

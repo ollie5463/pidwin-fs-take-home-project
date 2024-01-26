@@ -14,11 +14,15 @@ app.use(bodyParser.urlencoded({ limit: "5mb", extended: true }));
 app.use(cors());
 app.use("/api/user", userRouter);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 
+let listener;
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() =>
-    app.listen(PORT, () => console.log(`Server Started On Port ${PORT}`))
+    listener = app.listen(PORT, () => console.log(`Server Started On Port ${PORT}`))
   )
-  .catch((error) => console.log(error.message));
+  .catch((error) => console.error(error.message));
+
+  export { listener };
+  export default app;

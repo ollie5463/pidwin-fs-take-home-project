@@ -14,6 +14,7 @@ export const styles = {
   heading: {
     color: "rgba(0,183,255, 1)",
     textDecoration: "none",
+    padding: '20px'
   },
   toolbar: {
     display: "flex",
@@ -24,6 +25,22 @@ export const styles = {
     display: "flex",
     justifyContent: "space-between",
     width: "400px",
+  },
+  container: { 
+    display: "flex", 
+    justifyContent: "space-evenly", 
+    alignItems: "flex-end", 
+    marginBottom: "40px" 
+  },
+  wagerInput: {
+    alignItems: "left"
+   },
+  wagerContainer: {
+    display: "flex", 
+    alignItems: "center"
+   },
+   submitButton: {
+    margin: "0 10px"
   },
   userName: {
     display: "flex",

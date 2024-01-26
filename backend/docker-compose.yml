@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  mongo_db:
+    container_name: mongo_db
+    image: mongo
+    ports:
+      - "27018:27017"
+  coin_toss_backend:
+    container_name: coin_toss_backend
+    build:
+      context: .
+    ports:
+      - 8000:8000
